@@ -2,35 +2,46 @@ import React from "react";
 import { ChakraProvider, Box, Text, Image, Center } from "@chakra-ui/react";
 import { Avatar, AvatarGroup } from "@/components/ui/avatar";
 import TransparentButton from "@/components/TransparentButton"; // 클라이언트 컴포넌트 가져오기
+import { fetcher } from "@/utils";
 // 상품 데이터
-const nowProduct = {
-  id: 1,
-  title: "메가커피 아메리카노",
-  points: 3500,
-  src: "/coffee.jpeg",
-};
-const products = [
-  {
+interface Product {
+  id: number;
+  title: string;
+  points: number;
+  src: string;
+}
+
+async function SelectPresent() {
+  // const nowProduct: Product = await fetcher.get("products").json();
+  const nowProduct = {
     id: 1,
     title: "메가커피 아메리카노",
     points: 3500,
     src: "/coffee.jpeg",
-  },
-  {
-    id: 2,
-    title: "배스킨라빈스 파인트",
-    points: 7300,
-    src: "/baskin.jpg",
-  },
-  {
-    id: 3,
-    title: "돼지바",
-    points: 500,
-    src: "/pigbar.jpg",
-  },
-];
+  };
+  // const products = [
+  //   {
+  //     id: 1,
+  //     title: "메가커피 아메리카노",
+  //     points: 3500,
+  //     src: "/coffee.jpeg",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "배스킨라빈스 파인트",
+  //     points: 7300,
+  //     src: "/baskin.jpg",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "돼지바",
+  //     points: 500,
+  //     src: "/pigbar.jpg",
+  //   },
+  // ];
 
-function SelectPresent() {
+  const products: Product[] = await fetcher.get("product/list").json();
+
   return (
     <Box
       flexDirection="column"
@@ -47,16 +58,14 @@ function SelectPresent() {
       </Text>
 
       {/* 서브 텍스트 */}
-      <Center>
-        <Box>
-          <Text fontSize="2xl" color="gray.500">
-            현재 선택: {nowProduct.title}
-          </Text>
-          <Text fontSize="2xl" color="gray.500">
-            목표 포인트: {nowProduct.points}
-          </Text>
-        </Box>
-      </Center>
+      <Box>
+        <Text fontSize="2xl" color="gray.500">
+          현재 선택: {nowProduct.title}
+        </Text>
+        <Text fontSize="2xl" color="gray.500">
+          목표 포인트: {nowProduct.points}
+        </Text>
+      </Box>
       <Box width="full">
         <Center>
           <AvatarGroup width="50%" minHeight="60">
@@ -64,7 +73,6 @@ function SelectPresent() {
           </AvatarGroup>
         </Center>
       </Box>
-      {/* 상품 리스트 렌더링 */}
       {products.map((product) => (
         <Box
           key={product.id}

@@ -4,13 +4,26 @@ import React from "react";
 import { IconButton } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { FaCheck } from "react-icons/fa";
+import { fetcher } from "@/utils";
 
+interface Mission {
+  id: number;
+  name: string;
+  point: number;
+}
 // 투명한 버튼 컴포넌트
-const CheckButton: React.FC<{}> = ({}) => {
+const CheckButton: React.FC<{ mission: Mission }> = ({ mission }) => {
+  const router = useRouter();
   // 가짜 API 호출 함수 (실제 API URL로 대체)
-  const onClick = () => {
-    // api 호출
-    console.log("api 호출 완료!");
+  const onClick = async () => {
+    const res = await fetcher.put("missions/status", {
+      body: JSON.stringify({
+        userId: 1,
+        missionName: mission.name,
+      }),
+    });
+    router.push("health");
+    console.log(res);
   };
   return (
     <IconButton

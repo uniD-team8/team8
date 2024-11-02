@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { fetcher } from "@/utils";
 
 // 투명한 버튼 컴포넌트
 interface TransparentButtonProps {
@@ -14,13 +15,7 @@ const TransparentButton: React.FC<TransparentButtonProps> = ({ productId }) => {
   const router = useRouter();
   const sendSelectionToBackend = async (productId: number) => {
     try {
-      const response = await fetch("https://your-api-endpoint.com/selection", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ selectedItemId: productId }),
-      });
+      const response = await fetcher.put(`product/${productId}/user/1`);
 
       if (!response.ok) {
         throw new Error("API 요청 실패");

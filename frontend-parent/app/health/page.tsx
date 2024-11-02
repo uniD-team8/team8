@@ -38,33 +38,33 @@ const nowProduct = {
 
 const AImissionList = [
   {
-    title: "주변 동네 산책하기",
+    name: "주변 동네 산책하기",
     point: "100",
   },
   {
-    title: "커뮤니티 센터나 노인복지센터 활동 참여",
+    name: "커뮤니티 센터나 노인복지센터 활동 참여",
     point: "100",
   },
   {
-    title: "그림 그리기",
+    name: "그림 그리기",
     point: "100",
   },
 ];
 
 const missionListRender = AImissionList.map((mission) => {
   return (
-    <List.Item key={mission.title}>
+    <List.Item key={mission.name}>
       <List.Indicator asChild color="green.500">
         <LuCircleDashed />
       </List.Indicator>
       <Flex justifyContent="space-between" width="full">
         <Box height="full" my="auto">
           <Text color="black.400">
-            {mission.title} +{mission.point}원
+            {mission.name} +{mission.point}원
           </Text>
         </Box>
         <Box>
-          <CheckButton></CheckButton>
+          <CheckButton mission={mission}></CheckButton>
         </Box>
       </Flex>
     </List.Item>
@@ -108,7 +108,7 @@ const Page = () => {
                 justifyContent="space-between"
               >
                 <Heading size="lg">
-                  {medicine.medication}
+                  오늘 {medicine.medication}
                   <Text>
                     {medicine.isTodayEat ? "투여 완료" : "투여하셨나요?"}
                   </Text>

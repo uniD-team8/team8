@@ -30,15 +30,15 @@ const nowProduct = {
 
 const missionList = [
   {
-    title: "안부전화 시도하기",
+    title: "주변 동네 산책하기",
     point: "100",
   },
   {
-    title: "운동하고 체크하기",
+    title: "커뮤니티 센터나 노인복지센터 활동 참여",
     point: "100",
   },
   {
-    title: "약 먹고 인증하기",
+    title: "그림 그리기",
     point: "100",
   },
 ];
@@ -103,18 +103,21 @@ const Page = () => {
                 </AvatarGroup>
               </Center>
             </Box>
-            <Card.Description>
-              지민님과 함께 메가커피 아메리카노 얻을때까지
-              <Highlight query="1800p" styles={{ color: "green.400" }}>
-                1800p 남았어요!
-              </Highlight>
+            <Card.Description fontSize="md">
+              <Text>현재 1900p 쌓았어요!</Text>
+              <Text>
+                지민님과 함께 메가커피 아메리카노 얻을때까지
+                <Highlight query="1700p" styles={{ color: "green.400" }}>
+                  , 1700p 남았어요!
+                </Highlight>
+              </Text>
             </Card.Description>
             <ProgressRoot
               colorPalette="green"
               striped
-              max={1800}
+              max={3600}
               min={0}
-              value={1500}
+              value={1900}
             >
               <ProgressLabel />
               <ProgressValueText />
@@ -141,8 +144,8 @@ const Page = () => {
                     <Text color="green.500">+100</Text>
                   </Box>
                 </Flex>
+                <NavButton route="/health"></NavButton>
               </List.Item>
-              <NavButton route="/health"></NavButton>
             </List.Root>
           </Card.Body>
         </Card.Root>
