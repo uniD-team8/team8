@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 `;
 
 const Top = styled.div `
-    margin-left: 0px;
+    margin-left: 10px;
     color: #1D853F;
     font-weight: 900;
     font-size: 7vw;

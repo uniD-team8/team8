@@ -23,7 +23,6 @@ const Content = styled.div`
 `;
 
 const Card1 = styled.div`
-    margin-right:10px;
     background: #F5F5F5;
     width: 80vw;
     height: 25vh;
@@ -83,7 +82,6 @@ const Card1 = styled.div`
 `;
 
 const Card2 = styled.div`
-    margin-right:10px;
     background: #F5F5F5;
     width: 80vw;
     height: 35vh;
@@ -157,7 +155,11 @@ const HiddenInput = styled.input`
 `;
 
 const BottomBar = styled.div`
-
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
     width: 100vw;
     background-color: #F5F5F5;
     display: flex;

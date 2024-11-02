@@ -6,7 +6,6 @@ import { useState } from "react";
 
 const Wrapper = styled.div`
     width: 100vw;
-    height: 10vh; /* Full viewport height */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +13,6 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-    flex: 1; /* Takes up remaining space */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,6 +21,11 @@ const Content = styled.div`
 `;
 
 const BottomBar = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
     margin-bottom: 0px;
     width: 100vw;
     background-color: #F5F5F5;
@@ -32,7 +35,7 @@ const BottomBar = styled.div`
     padding: 22px 0;
     box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
     border-top: 1px solid #E0E0E0;
-    margin-top: 100px;
+    margin-top: 120px;
 
     .nav_button {
         background: none;
@@ -50,7 +53,6 @@ const BottomBar = styled.div`
 `;
 
 const Card1 = styled.div`
-    margin-right:10px;
     background: #F5F5F5;
     width: 90vw; /* Make sure card is a reasonable width */
     margin-top: 10px;
@@ -93,7 +95,6 @@ const Card1 = styled.div`
 `;
 
 const Card2 = styled.div`
-    margin-right:10px;
     background: #F5F5F5;
     width: 80vw;
     height: 30vh;
