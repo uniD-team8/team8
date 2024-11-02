@@ -1,7 +1,14 @@
+"use client";
 import { Box, IconButton, Flex } from "@chakra-ui/react";
-import { FaHome, FaSearch, FaUser } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { FaHome, FaHeart, FaUser, FaPhone } from "react-icons/fa";
+import React from "react";
 
-export default function BottomTabs() {
+const BottomTabs: React.FC<{}> = ({}) => {
+  const router = useRouter();
+  const onClickMain = () => {
+    router.push("/");
+  };
   return (
     <Box
       position="fixed"
@@ -20,26 +27,34 @@ export default function BottomTabs() {
           variant="ghost"
           colorScheme="teal"
           size="lg"
+          onClick={onClickMain}
         >
           <FaHome />
+          처음
         </IconButton>
         <IconButton
-          aria-label="Search"
+          aria-label="Health"
           variant="ghost"
           colorScheme="teal"
           size="lg"
+          onClick={() => router.push("/health")}
         >
-          <FaSearch />
+          <FaHeart />
+          건강
         </IconButton>
         <IconButton
-          aria-label="Profile"
+          aria-label="Call"
           variant="ghost"
           colorScheme="teal"
           size="lg"
+          onClick={() => router.push("/call")}
         >
-          <FaUser />
+          <FaPhone />
+          안심콜
         </IconButton>
       </Flex>
     </Box>
   );
-}
+};
+
+export default BottomTabs;
