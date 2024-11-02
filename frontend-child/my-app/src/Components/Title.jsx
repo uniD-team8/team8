@@ -8,8 +8,8 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: flex-start; /* 상단 정렬 */
     align-items: flex-start; /* 왼쪽 정렬 */
-    margin-top: 10px;
-    margin-left: 10px;
+    margin-top: 30px;
+    margin-left: 20px;
 `;
 
 const Top = styled.div `
@@ -35,7 +35,7 @@ const Title = () => {
 
   return (
     <Wrapper>
-        <Top>프로젝트명</Top>
+        <Top>같이하트❤️</Top>
     </Wrapper>
   );
 };
