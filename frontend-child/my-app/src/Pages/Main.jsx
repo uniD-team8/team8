@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
     width: 100vw;
-    height: 97vh; /* Full viewport height */
+    height: 90vh; /* Full viewport height */
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0;
+    overflow: hidden;
 `;
 
 const Content = styled.div`
@@ -17,7 +18,7 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
     overflow-y: auto; /* Allows scrolling if content exceeds viewport height */
     padding-bottom: 60px; /* Space for BottomBar */
 `;
@@ -35,7 +36,7 @@ const Card1 = styled.div`
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
     .card_title {
-        color: #1D853F;
+        color: #000;
         font-weight: 700;
         font-size: 4.5vw;
         text-align: center;
@@ -45,7 +46,7 @@ const Card1 = styled.div`
     .card_content {
         color: #1D853F;
         font-weight: 500;
-        font-size: 3.5vw;
+        font-size: 5vw;
         margin: auto;
         text-align: center;
     }
@@ -94,7 +95,7 @@ const Card2 = styled.div`
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
     .card_title {
-        color: #1D853F;
+        color: #000;
         font-weight: 700;
         font-size: 4.5vw;
         text-align: center;
@@ -105,8 +106,8 @@ const Card2 = styled.div`
     .photo_upload {
         background: #E0E0E0;
         width: 100%;
-        height: 60%;
-        margin-bottom: 40px;
+        height: 7s0%;
+        margin-bottom: 20px;
         border-radius: 10px;
         display: flex;
         justify-content: center;
@@ -159,13 +160,13 @@ const BottomBar = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    height: 45px;
+    height: 50px;
     width: 100vw;
     background-color: #F5F5F5;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 22px 0;
+    padding: 20px 0;
     box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
     border-top: 1px solid #E0E0E0;
 
@@ -181,6 +182,10 @@ const BottomBar = styled.div`
         &:hover {
             color: #145a28;
         }
+    }
+    
+    #nav_home {
+        color: #145a28;
     }
 `;
 
@@ -246,14 +251,63 @@ const ImageUpload = () => {
 
 const Main = () => {
     const navigate = useNavigate();
+    const [txt, setTxt] = useState("");
+    const [img, setImg] = useState();
+    const [uploadImgUrl, setUploadImgUrl] = useState("");
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [pointMessage, setPointMessage] = useState("");
+
+    const onImageHandler = (event) => {
+        const file = event.target.files[0];
+        setImg(file);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setUploadImgUrl(reader.result);
+        };
+    };
+
 
     const goToData = () => {
         navigate('/data');
     };
 
     const addPoint = () => {
-        // Your logic to add points
+        // 포인트 추가 코드
+        setPointMessage("50포인트가 적립되었습니다");
+        console.log("point");
     };
+
+    const handleSubmit = async () => {
+        // if (!img || !txt) {
+        //     alert('안됩니다 삐삐');
+        //     return;
+        // }
+        const formData = new FormData();
+        formData.append('text', txt);
+        if (img) {
+            formData.append('image', img);
+        }
+        try {
+            const response = await fetch("ENDPOINT", {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log("Success: ", result);
+                setIsSubmitted(true);
+            } else {
+                console.log("What Error: ", response.statusText);
+                setIsSubmitted(false);
+                console.log("false");
+            }
+        } catch (error) {
+            console.error("Fetch error: ", error);
+            setIsSubmitted(false);
+        }
+    }
 
     return (
         <Wrapper>
@@ -263,22 +317,36 @@ const Main = () => {
                     <div className="card_title">효도 전화 챌린지</div>
                     <div className="card_content">부모님께 전화 해보세요!</div>
                     <div className="bottom_section">
-                        <button className="call_button" onClick={addPoint}>전화걸기</button>
+                        {pointMessage ? (
+                            <span style={{fontSize:'4vw', color:'##1D853F', fontWeight:'700', marginRight: '5px'}}>
+                                {pointMessage}
+                            </span>
+                        ) : (
+                            <button className="call_button" onClick={() => { addPoint(); }}>전화걸기</button>
+                        )}
                         <img src={require("../Images/call.png")} alt="Call Icon" />
                     </div>
                 </Card1>
                 <Card2>
                     <div className="card_title">부모님과 일상 공유하기</div>
-                    <ImageUpload />
-                    <div className="text_area_section">
-                        <input type="text" className="text_area" placeholder="한마디 남기기" />
-                        <button className="submit_button">완료</button>
-                    </div>
+                    {isSubmitted ? (
+                        <div style={{fontSize: '5vw', color: '#1D853F', fontWeight: '700' , marginTop: "100px"}}>
+                            전송되었습니다
+                        </div>
+                    ) : (
+                        <>
+                            <ImageUpload onChange={onImageHandler}/>
+                            <div className="text_area_section">
+                                <input type="text" className="text_area" placeholder="한마디 남기기" value={txt} onChange={(e) => setTxt(e.target.value)}/>
+                                <button className="submit_button" onClick={handleSubmit}>완료</button>
+                            </div>
+                        </>
+                    )}
                 </Card2>
             </Content>
             <BottomBar>
-                <button className="nav_button">Home</button>
-                <button className="nav_button" onClick={goToData}>Data</button>
+                <button className="nav_button" id="nav_home">Home</button>
+                <button className="nav_button" id="nav_data" onClick={goToData}>Data</button>
             </BottomBar>
         </Wrapper>
     );

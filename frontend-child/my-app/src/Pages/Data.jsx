@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Wrapper = styled.div`
+    overflow: hidden;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -16,7 +17,7 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
     padding-bottom: 60px; /* Space for BottomBar */
 `;
 
@@ -50,6 +51,9 @@ const BottomBar = styled.div`
             color: #145a28;
         }
     }
+    #nav_data {
+        color: #145a28;
+    }
 `;
 
 const Card1 = styled.div`
@@ -77,9 +81,10 @@ const Card1 = styled.div`
     
     .card_content {
         color: #1D853F;
-        font-weight: 900;
-        font-size: 7vw;
+        font-weight: 800;
+        font-size: 8vw;
         margin: auto;
+        margin-top: 50px;
         text-align: center;
     }
 
@@ -107,7 +112,7 @@ const Card2 = styled.div`
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
     .card_title {
-        color: #1D853F;
+        color: #000;
         font-weight: 700;
         font-size: 5vw;
         text-align: center;
@@ -120,6 +125,7 @@ const Card2 = styled.div`
         font-weight: 700;
         font-size: 20vw;
         margin: auto;
+        margin-top: 20px;
         text-align: center;
     }
     .bottom_section {
@@ -131,33 +137,55 @@ const Card2 = styled.div`
         display: flex;
         align-items: center;
     }
+
 }
 `;
 
 const Data = () => {
     const navigate = useNavigate();
-    const [keywords, setKeywords] = useState([]); // State for storing keywords
+    const [keywords, setKeywords] = useState([]);
     const [point, setPoint] = useState(0);
 
     const goToMain = () => {
         navigate('/');
     };
 
-    const fetchKeywordData = () => {
+    const fetchKeywordData = async () => {
         // Here you can replace this with a call to your backend
-        const dummyKeywords = ["행복", "안도"]; // Dummy data array
-        setKeywords(dummyKeywords);
+        try {
+            const response = await fetch("ENDPOINT");
+            const data = await response.json();
+    
+            const keywordsEntries = Object.keys(data.keywords).slice(0, 2);
+            setKeywords(keywordsEntries);
+    
+        }
+        catch (error) {
+            console.log("Failed to fetch keywords: ", error);
+            const dummyKeywords = ["행복", "안도"]; // Dummy data array
+            setKeywords(dummyKeywords);    
+        }
+
     };
 
-    // Call the fetch function when the component mounts
     React.useEffect(() => {
         fetchKeywordData();
         fetchPoint();
     }, []);
 
-    const fetchPoint = () => {
-        const dummypoint = 6;
-        setPoint(dummypoint);
+    const fetchPoint = async () => {
+        try {
+            const response = await fetch("ENDPOINT")
+            const data = await response.json();
+
+            const PointEntries = data.points
+            setKeywords(PointEntries);
+        }
+        catch(error) {
+            console.log("Error: ", error);
+            const dummypoint = 100;
+            setPoint(dummypoint);    
+        }
     }
 
     return (
@@ -181,8 +209,8 @@ const Data = () => {
                     </div>
                 </Card2>
                 <BottomBar>
-                    <button className="nav_button" onClick={goToMain}>Home</button>
-                    <button className="nav_button">Data</button>
+                    <button className="nav_button" id="nav_home" onClick={goToMain}>Home</button>
+                    <button className="nav_button" id="nav_data">Data</button>
                 </BottomBar>
 
             </Content>
