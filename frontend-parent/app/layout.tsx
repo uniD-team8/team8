@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Provider } from "@/components/ui/provider";
+import BottomTabs from "@/components/Bottomtabs";
+import { Alert, Box, Flex, Text } from "@chakra-ui/react";
+import { LuAlarmCheck, LuAlertCircle } from "react-icons/lu";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,11 +28,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Provider>
+          <Box my="2" mx="3">
+            <Flex justifyContent="space-between">
+              <Box>
+                <Text fontSize="xl" color="green.500">
+                  같이가치
+                </Text>
+              </Box>
+              <Box>
+                <Text fontSize="xl" color="green.500">
+                  <LuAlertCircle />
+                </Text>
+              </Box>
+            </Flex>
+          </Box>
+          {children}
+          <BottomTabs />{" "}
+        </Provider>
       </body>
     </html>
   );
