@@ -5,28 +5,28 @@ import TransparentButton from "@/components/TransparentButton"; // 클라이언�
 // 상품 데이터
 const nowProduct = {
   id: 1,
-  title: "선물 1",
-  points: 100,
-  src: "http://artroll.co.kr/wp-content/uploads/2016/01/%EA%B9%80%ED%83%9C%EC%A4%80-%EB%8C%80%EA%B0%80%EC%A1%B1-22-1024x683.jpg",
+  title: "메가커피 아메리카노",
+  points: 3500,
+  src: "/coffee.jpeg",
 };
 const products = [
   {
     id: 1,
-    title: "선물 1",
-    points: 100,
-    src: "http://artroll.co.kr/wp-content/uploads/2016/01/%EA%B9%80%ED%83%9C%EC%A4%80-%EB%8C%80%EA%B0%80%EC%A1%B1-22-1024x683.jpg",
+    title: "메가커피 아메리카노",
+    points: 3500,
+    src: "/coffee.jpeg",
   },
   {
     id: 2,
-    title: "선물 2",
-    points: 200,
-    src: "http://artroll.co.kr/wp-content/uploads/2016/01/%EA%B9%80%ED%83%9C%EC%A4%80-%EB%8C%80%EA%B0%80%EC%A1%B1-22-1024x683.jpg",
+    title: "배스킨라빈스 파인트",
+    points: 7300,
+    src: "/baskin.jpg",
   },
   {
     id: 3,
-    title: "선물 3",
-    points: 300,
-    src: "http://artroll.co.kr/wp-content/uploads/2016/01/%EA%B9%80%ED%83%9C%EC%A4%80-%EB%8C%80%EA%B0%80%EC%A1%B1-22-1024x683.jpg",
+    title: "돼지바",
+    points: 500,
+    src: "/pigbar.jpg",
   },
 ];
 
@@ -60,11 +60,7 @@ function SelectPresent() {
       <Box width="full">
         <Center>
           <AvatarGroup width="50%" minHeight="60">
-            <Avatar
-              size="full"
-              name="Coffee"
-              src="https://gdimg.gmarket.co.kr/4162144715/still/280?ver=1727422494"
-            />
+            <Avatar size="full" name="Coffee" src="/coffee.jpeg" />
           </AvatarGroup>
         </Center>
       </Box>

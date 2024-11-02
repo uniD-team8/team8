@@ -13,12 +13,11 @@ import dayjs from "dayjs";
 import TransparentButton from "@/components/TransparentButton"; // 클라이언트 컴포넌트 가져오기
 import { FaPhone, FaPhoneAlt, FaPhoneSquare } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
-import GoOnCallButton from "./_components/GoOnCall";
+import GoCompleteButton from "../_components/GoComplete";
 // 상품 데이터
 
 const now = dayjs().format("MM월 DD일");
-
-function Call() {
+function SelectPresent() {
   return (
     <Box
       flexDirection="column"
@@ -33,25 +32,11 @@ function Call() {
       <Text fontSize="4xl" mb={2} fontWeight="bolder">
         {now}
       </Text>
-
-      {/* 서브 텍스트 */}
-      <Text fontSize="3xl" fontWeight="bold">
-        오늘의 하루를 AI 상담원과
-      </Text>
-      <Text fontSize="3xl" fontWeight="bold">
-        이야기해보세요.
-      </Text>
-      <Text fontSize="lg" mt="4" color="green.500">
-        분석된 데이터는 자녀분과 직접 공유되지 않아요.
-      </Text>
-      <Text fontSize="lg" mt="1" color="green.500" fontWeight="bold">
-        전화 완료시 250 포인트가 지급돼요.
-      </Text>
       <Box
         width="full"
         my="8"
         height="40"
-        bgColor="green.500"
+        bgColor="red.500"
         borderRadius="4xl"
         alignContent="center"
       >
@@ -59,11 +44,11 @@ function Call() {
           <Text mr="2">
             <FaPhoneFlip />
           </Text>
-          <GoOnCallButton></GoOnCallButton>
+          <GoCompleteButton />
         </Center>
       </Box>
     </Box>
   );
 }
 
-export default Call;
+export default SelectPresent;

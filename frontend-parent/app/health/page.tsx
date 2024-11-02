@@ -38,16 +38,16 @@ const nowProduct = {
 
 const AImissionList = [
   {
-    title: "안부전화 시도하기ㅁㅇㄹㅁㅈㄷㄹ",
+    title: "주변 동네 산책하기",
     point: "100",
   },
   {
-    title: "운동하고 체크하기",
-    point: "20",
+    title: "커뮤니티 센터나 노인복지센터 활동 참여",
+    point: "100",
   },
   {
-    title: "약 먹고 인증하기",
-    point: "10",
+    title: "그림 그리기",
+    point: "100",
   },
 ];
 
@@ -59,7 +59,9 @@ const missionListRender = AImissionList.map((mission) => {
       </List.Indicator>
       <Flex justifyContent="space-between" width="full">
         <Box height="full" my="auto">
-          <Text color="black.400">{mission.title}</Text>
+          <Text color="black.400">
+            {mission.title} +{mission.point}원
+          </Text>
         </Box>
         <Box>
           <CheckButton></CheckButton>
@@ -96,10 +98,7 @@ const Page = () => {
               </Card.Title>
             </Flex>
             <Flex>
-              <Avatar
-                size="2xl"
-                src="https://files.oaiusercontent.com/file-usHBSRlh4GTylCXfVJX6m3Ce?se=2024-11-02T16%3A23%3A24Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Db5ecc073-b811-4781-b32c-8197abe474e1.webp&sig=zc6wBDP8mGNdAXT0n7tx%2BStvro%2BBQMQ1o35xGXj4anI%3D"
-              ></Avatar>
+              <Avatar size="2xl" src="/medicine.png"></Avatar>
               <Flex
                 ml="4"
                 mr="0"
@@ -126,20 +125,16 @@ const Page = () => {
           <Card.Body gap="2">
             <Flex justifyContent="space-between">
               <Card.Title>위급상황 알림</Card.Title>
-              <ChangeButton />
             </Flex>
             <Box>
               <Center>
                 <AvatarGroup width="50%">
-                  <Avatar
-                    size="full"
-                    src="https://img.freepik.com/premium-vector/alarm-emergency-icon-vector-design-flat-style_393879-4833.jpg?w=1480"
-                  ></Avatar>
+                  <Avatar size="full" src="/emergency.jpg"></Avatar>
                 </AvatarGroup>
               </Center>
             </Box>
             <Heading size="md">
-              위급상황이 발생시 아래 연락처로 연락드려요. 지민님 전화번호:
+              위급상황 발생시 아래 연락처로 연락드려요. 지민님 전화번호:
               010-4085-9038
             </Heading>
           </Card.Body>
