@@ -6,6 +6,7 @@ import {
   Center,
   Flex,
   Highlight,
+  Button,
 } from "@chakra-ui/react";
 import { LuCircleDashed } from "react-icons/lu";
 import {
@@ -16,6 +17,14 @@ import {
 } from "@/components/ui/progress";
 import { AvatarGroup, Avatar } from "@/components/ui/avatar";
 import { Image } from "@chakra-ui/react";
+import ChangeButton from "@/components/ChangeButton";
+
+const nowProduct = {
+  id: 1,
+  title: "선물 1",
+  points: 100,
+  src: "http://artroll.co.kr/wp-content/uploads/2016/01/%EA%B9%80%ED%83%9C%EC%A4%80-%EB%8C%80%EA%B0%80%EC%A1%B1-22-1024x683.jpg",
+};
 
 const missionList = [
   {
@@ -63,11 +72,14 @@ const Page = () => {
           </Card.Body>
         </Card.Root>
       </Box>
-      
+
       <Box width="340px" mx="auto" pt="4">
         <Card.Root width="320px" variant="elevated">
           <Card.Body gap="2">
-            <Card.Title>목적 달성률</Card.Title>
+            <Flex justifyContent="space-between">
+              <Card.Title>목적 달성률</Card.Title>
+              <ChangeButton />
+            </Flex>
             <Box>
               <Center>
                 <AvatarGroup width="50%">
@@ -102,11 +114,9 @@ const Page = () => {
         <Card.Root width="320px" variant="elevated">
           <Card.Body gap="2">
             <Card.Title>활동 추천</Card.Title>
-            <Card.Description>
-              <List.Root gap="2" variant="plain" align="center">
-                {missionListRender}
-              </List.Root>
-            </Card.Description>
+            <List.Root gap="2" variant="plain" align="center">
+              {missionListRender}
+            </List.Root>
           </Card.Body>
         </Card.Root>
       </Box>
