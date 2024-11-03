@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Wrapper = styled.div`
+    height: calc(var(--vh, 1vh) * 100 + 50px);
+    max-width: 414px;
+    max-height: 896px;
     overflow: hidden;
-    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,6 +143,25 @@ const Card2 = styled.div`
 }
 `;
 
+const KeywordConverter = {
+    "happy": "기쁨",
+    "satisfied": "만족",
+    "positive_feeling": "긍정적인 느낌",
+    "peaceful": "평화",
+    "stable": "안정감",
+    "mindful": "마음의 평화",
+    "depressed": "우울",
+    "lost": "상실감",
+    "overwhelmed": "좌절",
+    "angry": "화남",
+    "annoyed": "짜증",
+    "dissatisfied": "불만",
+    "worried": "걱정",
+    "tense": "긴장",
+    "stress": "스트레스"
+};
+
+
 const Data = () => {
     const navigate = useNavigate();
     const [keywords, setKeywords] = useState([]);
@@ -156,9 +177,8 @@ const Data = () => {
             const response = await fetch("ENDPOINT");
             const data = await response.json();
     
-            const keywordsEntries = Object.keys(data.keywords).slice(0, 2);
+            const keywordsEntries = Object.keys(data.keywords).slice(0, 2).map(key => setKeywords(keywordsEntries));
             setKeywords(keywordsEntries);
-    
         }
         catch (error) {
             console.log("Failed to fetch keywords: ", error);
@@ -173,21 +193,53 @@ const Data = () => {
         fetchPoint();
     }, []);
 
-    const fetchPoint = async () => {
-        try {
-            const response = await fetch("ENDPOINT")
-            const data = await response.json();
+    const fetchWithTimeout = (url, options, timeout = 5000) => {
+        return new Promise((resolve, reject) => {
+            const timer = setTimeout(() => {
+                reject(new Error('Request timed out'));
+            }, timeout);
 
-            const PointEntries = data.points
-            setKeywords(PointEntries);
-        }
-        catch(error) {
-            console.log("Error: ", error);
-            const dummypoint = 100;
-            setPoint(dummypoint);    
-        }
+            fetch(url, options)
+                .then(response => {
+                    clearTimeout(timer);
+                    resolve(response);
+                })
+                .catch(err => {
+                    clearTimeout(timer);
+                    reject(err);
+                });
+        });
     }
 
+    const fetchPoint = async () => {
+        try {
+            // Sending a GET request to the server to retrieve points
+            const response = await fetch("http://43.203.246.159:8080/parent/points", {
+                method: 'GET',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json' // Specify the content type if needed
+                }
+            });
+    
+            // Check if the response is ok (status in the range 200-299)
+            if (!response.ok) {
+                // console.log("NO")
+                const errorText= await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+            }
+    
+            const data = await response.json();
+            
+            // Ensure that data.points is an integer or handle it as necessary
+            const pointValue = data.points || 0; // Default to 0 if points is undefined
+            setPoint(pointValue); // Set the point state with the received value
+        } catch (error) {
+            console.log("Point-Error: ", error);
+            const dummypoint = 100; // Fallback to a dummy point value
+            setPoint(dummypoint);
+        }
+    };
     return (
         <Wrapper>
             <Content>

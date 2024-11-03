@@ -1,26 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import Main from "../Pages/Main";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-    width: 100vw; /* 부모는 뷰포트 길이로 계산됨 */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* 상단 정렬 */
-    align-items: flex-start; /* 왼쪽 정렬 */
-    margin-top: 30px;
-    margin-left: 20px;
+    width: 414px;
+    height: 896px;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
-const Top = styled.div `
-    margin-left: 10px;
-    color: #1D853F;
-    font-weight: 900;
-    font-size: 7vw;
-    margin-bottom:0px;
-`
-
-const Title = () => {
+const Data = () => {
 //   const navigate = useNavigate();
 
 //   const goToWrite = () => {
@@ -35,9 +25,9 @@ const Title = () => {
 
   return (
     <Wrapper>
-        <Top>💚서로하트</Top>
+        <Main/>  
     </Wrapper>
   );
 };
 
-export default Title;
+export default Data;
