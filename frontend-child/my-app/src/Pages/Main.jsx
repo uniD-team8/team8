@@ -278,7 +278,7 @@ const Main = () => {
     };
 
     const addPoint = async () => {
-        setPointMessage("50포인트가 적립되었습니다");
+        setPointMessage("50원이 적립되었습니다");
         console.log("포인트가 성공적으로 적립되었습니다");
         // try {
         //     const response = await fetch(`http://43.203.246.159:8080/carecall/1`, {
