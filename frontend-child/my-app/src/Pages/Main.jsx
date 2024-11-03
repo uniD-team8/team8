@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Title from "../Components/Title";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
-    width: 100vw;
-    height: 90vh; /* Full viewport height */
+    height: calc(var(--vh, 1vh) * 100 + 50px);
+    max-width: 414px;
+    max-height: 896px;
+    /* width: 100vw;
+        height: 90vh; Full viewport height */
+    // transform: scale(${window.innerWidth / 414});
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,6 +26,7 @@ const Content = styled.div`
     overflow-y: auto; /* Allows scrolling if content exceeds viewport height */
     padding-bottom: 60px; /* Space for BottomBar */
 `;
+
 
 const Card1 = styled.div`
     background: #F5F5F5;
@@ -160,7 +165,7 @@ const BottomBar = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    height: 50px;
+    height: 45px;
     width: 100vw;
     background-color: #F5F5F5;
     display: flex;
@@ -272,43 +277,69 @@ const Main = () => {
         navigate('/data');
     };
 
-    const addPoint = () => {
-        // 포인트 추가 코드
+    const addPoint = async () => {
         setPointMessage("50포인트가 적립되었습니다");
-        console.log("point");
+        console.log("포인트가 성공적으로 적립되었습니다");
+        // try {
+        //     const response = await fetch(`http://43.203.246.159:8080/carecall/1`, {
+        //         method: 'GET',
+        //         redirect: "follow"
+        //         // Uncomment these lines if CORS or credentials are needed
+        //         // mode: 'cors', 
+        //         // credentials: "include", 
+        //     });
+    
+        //     if (response.ok) {
+        //         setPointMessage("50포인트가 적립되었습니다");
+        //         console.log("포인트가 성공적으로 적립되었습니다");
+        //     } else {
+        //         // Handle the case where the server returns an error
+        //         console.log("포인트 적립 실패: ", response.statusText);
+        //         setPointMessage("포인트 적립에 실패했습니다");
+        //     }
+        // } catch (error) {
+        //     // Catch any network or unexpected errors
+        //     console.error("요청 오류 발생: ", error);
+        //     setPointMessage("포인트 적립에 실패했습니다");
+        // }
     };
+    
+    // Usage example
+    // Call addPoint with the specific user ID when you want to increment points
+    // addPoint("1"); // Example for user ID 1
+        
 
     const handleSubmit = async () => {
-        // if (!img || !txt) {
-        //     alert('안됩니다 삐삐');
-        //     return;
+        // Prepare the data to be sent in JSON format
+        setIsSubmitted(true);
+        console.log("Success");
+        // const formData = new FormData();
+        // formData.append('text', txt);
+    
+        // try {
+        //     const response = await fetch("http://43.203.246.159:8080/child/say", {
+        //         method: 'POST',
+        //         body: formData,
+        //         // headers: {
+        //         //     'Content-Type': 'application/json', // Set the content type to JSON
+        //         // },
+        //         // body: JSON.stringify(data), // Convert the JavaScript object to a JSON string
+        //     });
+    
+        //     if (response.ok) {
+        //         const result = await response.json();
+        //         console.log("Success: ", result);
+        //         setIsSubmitted(true);
+        //     } else {
+        //         console.log("What Error: ", response.statusText);
+        //         setIsSubmitted(false);
+        //     }
+        // } catch (error) {
+        //     console.error("Fetch error: ", error);
+        //     setIsSubmitted(false);
         // }
-        const formData = new FormData();
-        formData.append('text', txt);
-        if (img) {
-            formData.append('image', img);
-        }
-        try {
-            const response = await fetch("ENDPOINT", {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log("Success: ", result);
-                setIsSubmitted(true);
-            } else {
-                console.log("What Error: ", response.statusText);
-                setIsSubmitted(false);
-                console.log("false");
-            }
-        } catch (error) {
-            console.error("Fetch error: ", error);
-            setIsSubmitted(false);
-        }
-    }
-
+    };
+    
     return (
         <Wrapper>
             <Content>
@@ -337,7 +368,7 @@ const Main = () => {
                         <>
                             <ImageUpload onChange={onImageHandler}/>
                             <div className="text_area_section">
-                                <input type="text" className="text_area" placeholder="한마디 남기기" value={txt} onChange={(e) => setTxt(e.target.value)}/>
+                                <input type="text" className="text_area" placeholder="한마디 남기기" value={txt} name="text" onChange={(e) => setTxt(e.target.value)}/>
                                 <button className="submit_button" onClick={handleSubmit}>완료</button>
                             </div>
                         </>
