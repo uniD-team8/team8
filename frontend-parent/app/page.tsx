@@ -7,6 +7,7 @@ import {
   Flex,
   Highlight,
   Button,
+  IconButton,
 } from "@chakra-ui/react";
 import { LuAlertCircle, LuCircleDashed } from "react-icons/lu";
 import {
@@ -20,13 +21,25 @@ import { Image } from "@chakra-ui/react";
 import ChangeButton from "@/components/ChangeButton";
 import NextImage from "next/image";
 import NavButton from "./_components/NavButton";
+import { fetcher } from "@/utils";
+import { FiAlertCircle } from "react-icons/fi";
+import DialogModal from "./_components/DialogModal";
 
-const nowProduct = {
-  id: 1,
-  title: "선물 1",
-  points: 100,
-  src: "http://artroll.co.kr/wp-content/uploads/2016/01/%EA%B9%80%ED%83%9C%EC%A4%80-%EB%8C%80%EA%B0%80%EC%A1%B1-22-1024x683.jpg",
-};
+export const dynamic = "force-dynamic";
+
+interface Product {
+  id: number;
+  name: string;
+  points: number;
+  photo: string;
+}
+const nowProduct: Product = await fetcher
+  .get("product/favorite/1", {
+    cache: "no-store",
+  })
+  .json();
+// const nowPoint = await fetcher.get("parent/points").json();
+const nowPoint = 100;
 
 const missionList = [
   {
@@ -67,15 +80,14 @@ const Page = () => {
       <Box width="340px" mx="auto" pt="4">
         <Flex justifyContent="space-between">
           <Box>
-            <Text fontSize="xl" color="grey.100" fontFamily="hakgyoansim">
-              <NextImage
-                src="/seoroheart.png"
-                width="100"
-                height="50"
-                alt="seroheart"
-              ></NextImage>
-            </Text>
+            <NextImage
+              src="/seoroheart.png"
+              width="100"
+              height="50"
+              alt="seroheart"
+            ></NextImage>
           </Box>
+          <DialogModal />
         </Flex>
       </Box>
       <Box width="340px" mx="auto" pt="4">
@@ -99,18 +111,18 @@ const Page = () => {
             <Box>
               <Center>
                 <AvatarGroup width="50%">
-                  <Avatar size="full" src="/coffee.jpeg"></Avatar>
+                  <Avatar size="full" src={nowProduct.photo}></Avatar>
                 </AvatarGroup>
               </Center>
             </Box>
             <Card.Description fontSize="md">
-              <Text>현재 1900p 쌓았어요!</Text>
-              <Text>
-                지민님과 함께 메가커피 아메리카노 얻을때까지
-                <Highlight query="1700p" styles={{ color: "green.400" }}>
-                  , 1700p 남았어요!
-                </Highlight>
-              </Text>
+              현재 {nowPoint}원 쌓았어요!
+            </Card.Description>
+            <Card.Description fontSize="md">
+              지민님과 함께 {nowProduct.name} 얻을때까지
+              <Highlight query="1700p" styles={{ color: "green.400" }}>
+                {`, ${(nowProduct.points - nowPoint).toString()}원 남았어요!`}
+              </Highlight>
             </Card.Description>
             <ProgressRoot
               colorPalette="green"
@@ -141,7 +153,7 @@ const Page = () => {
                     <Text color="black.400">약 기록하기</Text>
                   </Box>
                   <Box>
-                    <Text color="green.500">+100</Text>
+                    <Text color="green.500">+100원</Text>
                   </Box>
                 </Flex>
                 <NavButton route="/health"></NavButton>

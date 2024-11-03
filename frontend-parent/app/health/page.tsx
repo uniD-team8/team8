@@ -25,8 +25,8 @@ import NextImage from "next/image";
 
 const medicine = {
   id: 1,
-  medication: "인슐린 1000mg",
-  isTodayEat: 1,
+  medication: "인슐린 7unit SC",
+  isTodayEat: 0,
   userId: 3,
 };
 const nowProduct = {
@@ -38,33 +38,33 @@ const nowProduct = {
 
 const AImissionList = [
   {
-    name: "주변 동네 산책하기",
+    title: "주변 동네 산책하기",
     point: "100",
   },
   {
-    name: "커뮤니티 센터나 노인복지센터 활동 참여",
+    title: "커뮤니티 센터나 노인복지센터 활동 참여",
     point: "100",
   },
   {
-    name: "그림 그리기",
+    title: "그림 그리기",
     point: "100",
   },
 ];
 
 const missionListRender = AImissionList.map((mission) => {
   return (
-    <List.Item key={mission.name}>
+    <List.Item key={mission.title}>
       <List.Indicator asChild color="green.500">
         <LuCircleDashed />
       </List.Indicator>
       <Flex justifyContent="space-between" width="full">
         <Box height="full" my="auto">
           <Text color="black.400">
-            {mission.name} +{mission.point}원
+            {mission.title} +{mission.point}원
           </Text>
         </Box>
         <Box>
-          <CheckButton mission={mission}></CheckButton>
+          <CheckButton></CheckButton>
         </Box>
       </Flex>
     </List.Item>
@@ -108,7 +108,7 @@ const Page = () => {
                 justifyContent="space-between"
               >
                 <Heading size="lg">
-                  오늘 {medicine.medication}
+                  {medicine.medication}
                   <Text>
                     {medicine.isTodayEat ? "투여 완료" : "투여하셨나요?"}
                   </Text>

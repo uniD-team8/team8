@@ -6,19 +6,19 @@ import { fetcher } from "@/utils";
 // 상품 데이터
 interface Product {
   id: number;
-  title: string;
+  name: string;
   points: number;
-  src: string;
+  photo: string;
 }
 
 async function SelectPresent() {
-  // const nowProduct: Product = await fetcher.get("products").json();
-  const nowProduct = {
-    id: 1,
-    title: "메가커피 아메리카노",
-    points: 3500,
-    src: "/coffee.jpeg",
-  };
+  const nowProduct: Product = await fetcher.get("product/favorite/1").json();
+  // const nowProduct = {
+  //   id: 1,
+  //   title: "메가커피 아메리카노",
+  //   points: 3500,
+  //   src: "/coffee.jpeg",
+  // };
   // const products = [
   //   {
   //     id: 1,
@@ -60,7 +60,7 @@ async function SelectPresent() {
       {/* 서브 텍스트 */}
       <Box>
         <Text fontSize="2xl" color="gray.500">
-          현재 선택: {nowProduct.title}
+          현재 선택: {nowProduct.name}
         </Text>
         <Text fontSize="2xl" color="gray.500">
           목표 포인트: {nowProduct.points}
@@ -69,7 +69,7 @@ async function SelectPresent() {
       <Box width="full">
         <Center>
           <AvatarGroup width="50%" minHeight="60">
-            <Avatar size="full" name="Coffee" src="/coffee.jpeg" />
+            <Avatar size="full" name="Coffee" src={nowProduct.photo} />
           </AvatarGroup>
         </Center>
       </Box>
@@ -88,8 +88,8 @@ async function SelectPresent() {
           position="relative" // 투명한 버튼을 덮기 위해 position 설정
         >
           <Image
-            src={product.src}
-            alt={product.title}
+            src={product.photo}
+            alt={product.name}
             boxSize="100px"
             objectFit="cover"
             mr={4}
@@ -98,7 +98,7 @@ async function SelectPresent() {
           {/* 상품 정보 (오른쪽) */}
           <Box>
             <Text fontSize="lg" fontWeight="bold">
-              {product.title} 선택
+              {product.name} 선택
             </Text>
             <Text color="gray.500">{product.points} 포인트</Text>
           </Box>

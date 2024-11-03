@@ -22,7 +22,8 @@ const TransparentButton: React.FC<TransparentButtonProps> = ({ productId }) => {
       }
 
       console.log("백엔드에 성공적으로 데이터 전송:", productId);
-      router.push("/");
+      window.location.reload();
+      window.location.pathname = "/";
     } catch (error) {
       console.error("API 요청 중 오류 발생:", error);
       router.push("/");
